@@ -1,0 +1,93 @@
+# pygame template
+
+import pygame
+
+
+pygame.init()
+
+WIDTH = 640
+HEIGHT = 480
+SIZE = (WIDTH, HEIGHT)
+
+screen = pygame.display.set_mode(SIZE)
+clock = pygame.time.Clock()
+
+# ---------------------------
+# Initialize global variables for animation
+# These must have your name in there
+x = 0
+y = 0
+circle_x_adeline = 500 + x
+circle_y_adeline = 80 + y
+ellipse_x_adeline = 200 + x
+ellipse_y_adeline = 50 + y
+line_x_adeline = 300 + x
+line_y_adeline = 215 + y
+
+# ---------------------------
+
+running = True
+while running:
+    # EVENT HANDLING
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # GAME STATE UPDATES
+    # All game math and comparisons happen here
+
+    # DRAWING
+    # Must have these coordinates
+    x = 0
+    y = 0
+    width = 640
+    height = 480
+
+    # Rather than screen.fill, draw a rectangle
+    pygame.draw.rect(screen, (255, 255, 255), (x, y, width, height))
+    pygame.draw.rect(screen, (63, 155, 11), (x, y + 300, width, height))
+
+    # Must draw with reference to that coordinate
+    ellipse_x_adeline += 1
+    
+    if ellipse_x_adeline == width:
+        ellipse_x_adeline = 0
+    
+# CLOUD 1 (dark blue)
+    pygame.draw.ellipse(screen, (0, 0, 255), (ellipse_x_adeline, ellipse_y_adeline, 135, 65))
+    pygame.draw.ellipse(screen, (0, 0, 255), (-85 + ellipse_x_adeline, ellipse_y_adeline, 135, 65))
+# SUN
+    pygame.draw.circle(screen, (255, 255, 0), (circle_x_adeline, circle_y_adeline), 75)
+# CLOUD 2 (light blue)
+    pygame.draw.ellipse(screen, (0, 150, 255), (-100 + ellipse_x_adeline, 80 + ellipse_y_adeline, 135, 65))
+    pygame.draw.ellipse(screen, (0, 150, 255), (-200 + ellipse_x_adeline, 80 + ellipse_y_adeline, 135, 65))
+# FENCE (brown)
+    start_x = 100
+    spacing = 5
+    fence = 15
+    width = 20
+    while x < (width + spacing) * fence:
+        pygame.draw.rect(screen, (150, 75, 0), (x + start_x, 275, width, 40))
+        x += width + spacing
+# HEAD
+    pygame.draw.circle(screen, (0, 0, 0), (-200 + circle_x_adeline, 100 + circle_y_adeline), 35, width = 5)
+# BODY
+    pygame.draw.line(screen, (0, 0, 0), (line_x_adeline, line_y_adeline), (line_x_adeline, line_y_adeline + 50), width = 5)
+# ARM OVER HEAD
+    pygame.draw.line(screen, (0, 0, 0), (line_x_adeline + 42, line_y_adeline - 40), (line_x_adeline, line_y_adeline + 30), width = 5)
+    pygame.draw.line(screen, (0, 0, 0), (line_x_adeline + 42, line_y_adeline - 40), (line_x_adeline + 15, line_y_adeline - 50), width = 5)
+# OTHER ARM
+    pygame.draw.line(screen, (0, 0, 0), (line_x_adeline - 40, line_y_adeline + 20), (line_x_adeline, line_y_adeline), width = 5)
+    pygame.draw.line(screen, (0, 0, 0), (line_x_adeline - 40, line_y_adeline + 20), (line_x_adeline, line_y_adeline + 45), width = 5)
+# LEGS
+    pygame.draw.line(screen, (0, 0, 0), (line_x_adeline, line_y_adeline + 50), (line_x_adeline + 30, line_y_adeline + 80), width = 5)
+    pygame.draw.line(screen, (0, 0, 0), (line_x_adeline, line_y_adeline + 50), (line_x_adeline - 30, line_y_adeline + 80), width = 5)
+    
+    # Must be the last two lines
+    # of the game loop
+    pygame.display.flip()
+    clock.tick(30)
+    #---------------------------
+
+
+pygame.quit()
